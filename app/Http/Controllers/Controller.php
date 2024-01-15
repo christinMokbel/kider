@@ -4,14 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\Request;
+use App\Models\Testimonial;
+use App\Traits\Common;
 use Illuminate\Routing\Controller as BaseController;
 
 class Controller extends BaseController
 {
+    use Common;
     use AuthorizesRequests, ValidatesRequests;
 
     public function index(){
-        return view('index');
+        $testimonials =Testimonial::get();
+        return view('index',compact('testimonials'));
     }
     public function about(){
         return view('about');
@@ -38,7 +43,9 @@ class Controller extends BaseController
         return view('team');
     }
     public function testimonial(){
-        return view('testimonial');
+        $testimonials =Testimonial::get();
+        return view('testimonial',compact('testimonials'));
+       // return view('testimonial');
     }
     public function __invoke()
     {
