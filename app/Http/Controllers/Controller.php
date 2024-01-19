@@ -15,14 +15,16 @@ class Controller extends BaseController
     use AuthorizesRequests, ValidatesRequests;
 
     public function index(){
-        $testimonials =Testimonial::get();
+        $testimonials =Testimonial::where('published',1)->latest()->take(2)->get();
         return view('index',compact('testimonials'));
     }
     public function about(){
         return view('about');
     }
     public function classes(){
-        return view('classes');
+        $testimonials =Testimonial::get();
+        return view('classes',compact('testimonials'));
+        //return view('classes');
     }
     public function contact(){
         return view('contact');

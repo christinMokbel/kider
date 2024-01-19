@@ -3,6 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Testimonialcontroller;
+use App\Http\Controllers\Contactcontroller;
+use App\Http\Controllers\Appointmentcontroller;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +22,7 @@ use App\Http\Controllers\Testimonialcontroller;
 Route::get('/', function () {
     return view('welcome');
 });
+//part1
 // Route::fallback(function(){
 //        return redirect ('page/error404');
 //     });
@@ -34,6 +39,7 @@ Route::prefix('page')->group( function () {
     Route::get('testimonial',[Controller::class,'testimonial'])->name('testimonial');
 });
 Route::fallback(Controller::class);
+//part2
 Route::prefix('testimonial')->group( function () {
 
       Route::get('createtestimonial',[Testimonialcontroller::class,'create'])->name ('createtestimonial');
@@ -46,5 +52,26 @@ Route::prefix('testimonial')->group( function () {
       Route::get('trashed',[Testimonialcontroller::class,'trashed'])->name('trashedtestimonial');
       Route::get('forceDelete/{id}',[Testimonialcontroller::class,'forceDelete']);
       Route::get('restoretestimonial/{id}',[Testimonialcontroller::class,'restore']);
+
+});
+//part3
+Route::post('contactmail',[Contactcontroller::class,'contactmail'])->name('contactmail');
+Route::prefix('contact')->group( function () {
+    Route::get('contacts',[Contactcontroller::class,'index'])->name('contacts');
+    Route::get('showcontact/{id}',[Contactcontroller::class,'show'])->name('showcontact');
+    Route::get('deletecontact/{id}',[Contactcontroller::class,'destroy'])->name('deletecontact');
+    Route::get('trashedcontact',[Contactcontroller::class,'trashed'])->name('trashedcontact');
+    Route::get('forceDeletecontact/{id}',[Contactcontroller::class,'forceDelete'])->name('forcedeletecontact');
+    Route::get('restorecontact/{id}',[Contactcontroller::class,'restore'])->name('restorecontact');
+
+});
+Route::prefix('appointment')->group( function () {
+    Route::get('appointments',[Appointmentcontroller::class,'index'])->name('appointments');
+    Route::post('storeappointment',[Appointmentcontroller::class,'store'])->name ('storeappointment');
+    Route::get('showappointment/{id}',[Appointmentcontroller::class,'show'])->name('showappointment');
+    Route::get('deleteappointment/{id}',[Appointmentcontroller::class,'destroy'])->name('deleteappointment');
+    Route::get('trashedappointment',[Appointmentcontroller::class,'trashed'])->name('trashedappointment');
+    Route::get('forceDeleteappointment/{id}',[Appointmentcontroller::class,'forceDelete'])->name('forcedeleteappointment');
+    Route::get('restoreappointment/{id}',[Appointmentcontroller::class,'restore'])->name('restoreappointment');
 
 });
