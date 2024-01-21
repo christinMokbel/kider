@@ -6,6 +6,8 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use App\Models\Testimonial;
+use App\Models\Teacher;
+use App\Models\Subject;
 use App\Traits\Common;
 use Illuminate\Routing\Controller as BaseController;
 
@@ -16,15 +18,23 @@ class Controller extends BaseController
 
     public function index(){
         $testimonials =Testimonial::where('published',1)->latest()->take(2)->get();
-        return view('index',compact('testimonials'));
+        $teachers =Teacher::where('published',1)->latest()->take(3)->get();
+        $subjects =Subject::where('published',1)->latest()->take(6)->get();
+
+        return view('index',compact('testimonials','teachers','subjects'));
     }
     public function about(){
-        return view('about');
+        $teachers =Teacher::where('published',1)->latest()->take(3)->get();
+
+        return view('about',compact('teachers'));
     }
     public function classes(){
-        $testimonials =Testimonial::get();
-        return view('classes',compact('testimonials'));
-        //return view('classes');
+
+        $testimonials =Testimonial::where('published',1)->latest()->take(3)->get();
+
+        $subjects =Subject::where('published',1)->latest()->take(6)->get();
+
+        return view('classes',compact('testimonials','subjects'));
     }
     public function contact(){
         return view('contact');
@@ -42,10 +52,14 @@ class Controller extends BaseController
         return view('facility');
     }
     public function team(){
-        return view('team');
+        $teachers =Teacher::where('published',1)->latest()->take(6)->get();
+
+        return view('team',compact('teachers') );
     }
     public function testimonial(){
-        $testimonials =Testimonial::get();
+        $testimonials =Testimonial::where('published',1)->latest()->take(3)->get();
+
+        //$testimonials =Testimonial::get();
         return view('testimonial',compact('testimonials'));
        // return view('testimonial');
     }

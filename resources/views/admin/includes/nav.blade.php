@@ -11,6 +11,12 @@
       <li class="{{Request()->routeIs("trashedcontact")?'active':''}}"><a href="{{ route('trashedcontact') }}">trashed contact</a></li>
       <li class="{{Request()->routeIs("appointments")?'active':''}}"><a href="{{route('appointments')}}">all appointments</a></li>
       <li class="{{Request()->routeIs("trashedappointment")?'active':''}}"><a href="{{ route('trashedappointment') }}">trashed appointment</a></li>
+      <li class="{{Request()->routeIs("createteacher")?'active':''}}"><a href="{{route('createteacher')}}">insert teacher</a></li>
+      <li class="{{Request()->routeIs("teachers")?'active':''}}"><a href="{{route('teachers')}}">all teachers</a></li>
+      <li class="{{Request()->routeIs("trashedteacher")?'active':''}}"><a href="{{ route('trashedteacher') }}">trashed teachers</a></li>
+      <li class="{{Request()->routeIs("createsubject")?'active':''}}"><a href="{{route('createsubject')}}">insert subject</a></li>
+      <li class="{{Request()->routeIs("subjects")?'active':''}}"><a href="{{route('subjects')}}">all subjects</a></li>
+      <li class="{{Request()->routeIs("trashedsubject")?'active':''}}"><a href="{{ route('trashedsubject') }}">trashed subjects</a></li>
     </ul>
   </div>
 </nav>

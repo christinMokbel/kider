@@ -5,6 +5,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Testimonialcontroller;
 use App\Http\Controllers\Contactcontroller;
 use App\Http\Controllers\Appointmentcontroller;
+use App\Http\Controllers\Teachercontroller;
+use App\Http\Controllers\Subjectcontroller;
+
 
 
 
@@ -75,3 +78,38 @@ Route::prefix('appointment')->group( function () {
     Route::get('restoreappointment/{id}',[Appointmentcontroller::class,'restore'])->name('restoreappointment');
 
 });
+
+//part4
+Route::prefix('teacher')->group( function () {
+
+    Route::get('createteacher',[Teachercontroller::class,'create'])->name('createteacher');
+    Route::post('storeteacher',[Teachercontroller::class,'store'])->name('storeteacher');
+    Route::get('teachers',[Teachercontroller::class,'index'])->name('teachers');
+    Route::get('editteacher/{id}',[Teachercontroller::class,'edit'])->name('editteacher');
+    Route::put('updateteacher/{id}',[Teachercontroller::class,'update'])->name('updateteacher');
+    Route::get('showteacher/{id}',[Teachercontroller::class,'show'])->name('showteacher');
+    Route::get('deleteteacher/{id}',[Teachercontroller::class,'destroy'])->name('deleteteacher');
+    Route::get('trashedteacher',[Teachercontroller::class,'trashed'])->name('trashedteacher');
+    Route::get('forceDeleteteacher/{id}',[Teachercontroller::class,'forceDelete'])->name('forcedeleteteacher');
+    Route::get('restoreteacher/{id}',[Teachercontroller::class,'restore'])->name('restoreteacher');
+
+});
+Route::prefix('subject')->group( function () {
+
+    Route::get('createsubject',[Subjectcontroller::class,'create'])->name('createsubject');
+    Route::post('storesubject',[Subjectcontroller::class,'store'])->name('storesubject');
+    Route::get('subjects',[Subjectcontroller::class,'index'])->name('subjects');
+    Route::get('editsubject/{id}',[Subjectcontroller::class,'edit'])->name('editsubject');
+    Route::put('updatesubject/{id}',[Subjectcontroller::class,'update'])->name('updatesubject');
+    Route::get('showsubject/{id}',[Subjectcontroller::class,'show'])->name('showsubject');
+    Route::get('deletesubject/{id}',[Subjectcontroller::class,'destroy'])->name('deletesubject');
+    Route::get('trashedsubject',[Subjectcontroller::class,'trashed'])->name('trashedsubject');
+    Route::get('forceDeletesubject/{id}',[Subjectcontroller::class,'forceDelete'])->name('forcedeletesubject');
+    Route::get('restoresubject/{id}',[Subjectcontroller::class,'restore'])->name('restoresubject');
+
+});
+// Route::middleware('auth')->prefix('cpanel')->group(function () {
+//     Route::prefix('home')->controller(HomeController::class)->group(function () {
+//         /*add new editor pages*/
+//         Route::get('/index', 'index');
+//     });
