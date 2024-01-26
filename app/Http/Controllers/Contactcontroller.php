@@ -25,9 +25,19 @@ class Contactcontroller extends Controller
         $contacts =Contact::get();
         return view('admin.contacts',compact('contacts'));
             }
+            
+        public function unread(){
+            $contacts =Contact::where('unread',0)->get();
+            return view('admin.unreadcontact',compact('contacts'));
+        }
+        // public function unreadcount(){
+        //     $contacts =Contact::where('unread',0)->count();
+        //     return view('admin.unreadcontact',compact('contacts'));
+        // }
         
          public function show(string $id)
             {
+                Contact::where('id', $id)->update(['unread' => 1]);
                 $contact= Contact::findOrFail($id);
                 return view('admin.showcontact', compact('contact'));
             }

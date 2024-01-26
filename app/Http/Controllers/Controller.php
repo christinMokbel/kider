@@ -17,7 +17,7 @@ class Controller extends BaseController
     use AuthorizesRequests, ValidatesRequests;
 
     public function index(){
-        $testimonials =Testimonial::where('published',1)->latest()->take(2)->get();
+        $testimonials =Testimonial::where('published',1)->latest()->take(3)->get();
         $teachers =Teacher::where('published',1)->latest()->take(3)->get();
         $subjects =Subject::where('published',1)->latest()->take(6)->get();
 
@@ -32,7 +32,7 @@ class Controller extends BaseController
 
         $testimonials =Testimonial::where('published',1)->latest()->take(3)->get();
 
-        $subjects =Subject::where('published',1)->latest()->take(6)->get();
+        $subjects =Subject::where('published',1)->latest()->paginate(3);
 
         return view('classes',compact('testimonials','subjects'));
     }

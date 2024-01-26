@@ -7,7 +7,10 @@ Classses
 Classes
 @endsection
 @section('content')
+
 @include('includes.classes')
+<div class="d-flex justify-content-center">{!! $subjects->links() !!}</div>
+
 @include('includes.appointment')
 @include('includes.testimonial')
 @endsection

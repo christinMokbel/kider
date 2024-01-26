@@ -21,15 +21,16 @@ use App\Http\Controllers\Subjectcontroller;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+define('PAGINATION_COUNT', 10);
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 //part1
 // Route::fallback(function(){
 //        return redirect ('page/error404');
 //     });
-Route::get('index',[Controller::class,'index'])->name('index');
+Route::get('/',[Controller::class,'index'])->name('index');
 Route::get('about',[Controller::class,'about'])->name('about');
 Route::get('classes',[Controller::class,'classes'])->name('classes');
 Route::get('contact',[Controller::class,'contact'])->name('contact');
@@ -43,7 +44,8 @@ Route::prefix('page')->group( function () {
 });
 Route::fallback(Controller::class);
 //part2
-Route::prefix('testimonial')->group( function () {
+// Route::middleware('verified')->group(function () {
+Route::middleware('verified')->prefix('testimonial')->group( function () {
 
       Route::get('createtestimonial',[Testimonialcontroller::class,'create'])->name ('createtestimonial');
       Route::post('storetestimonial',[Testimonialcontroller::class,'store'])->name ('storetestimonial');
@@ -58,9 +60,11 @@ Route::prefix('testimonial')->group( function () {
 
 });
 //part3
-Route::post('contactmail',[Contactcontroller::class,'contactmail'])->name('contactmail');
-Route::prefix('contact')->group( function () {
+Route::post('contactmail',[Contactcontroller::class,'contactmail'])->middleware('verified')->name('contactmail');
+Route::middleware('verified')->prefix('contact')->group( function () {
     Route::get('contacts',[Contactcontroller::class,'index'])->name('contacts');
+    Route::get('unreadcontact',[Contactcontroller::class,'unread'])->name('unreadcontact');
+
     Route::get('showcontact/{id}',[Contactcontroller::class,'show'])->name('showcontact');
     Route::get('deletecontact/{id}',[Contactcontroller::class,'destroy'])->name('deletecontact');
     Route::get('trashedcontact',[Contactcontroller::class,'trashed'])->name('trashedcontact');
@@ -68,7 +72,7 @@ Route::prefix('contact')->group( function () {
     Route::get('restorecontact/{id}',[Contactcontroller::class,'restore'])->name('restorecontact');
 
 });
-Route::prefix('appointment')->group( function () {
+Route::middleware('verified')->prefix('appointment')->group( function () {
     Route::get('appointments',[Appointmentcontroller::class,'index'])->name('appointments');
     Route::post('storeappointment',[Appointmentcontroller::class,'store'])->name ('storeappointment');
     Route::get('showappointment/{id}',[Appointmentcontroller::class,'show'])->name('showappointment');
@@ -80,7 +84,7 @@ Route::prefix('appointment')->group( function () {
 });
 
 //part4
-Route::prefix('teacher')->group( function () {
+Route::middleware('verified')->prefix('teacher')->group( function () {
 
     Route::get('createteacher',[Teachercontroller::class,'create'])->name('createteacher');
     Route::post('storeteacher',[Teachercontroller::class,'store'])->name('storeteacher');
@@ -94,7 +98,7 @@ Route::prefix('teacher')->group( function () {
     Route::get('restoreteacher/{id}',[Teachercontroller::class,'restore'])->name('restoreteacher');
 
 });
-Route::prefix('subject')->group( function () {
+Route::middleware('verified')->prefix('subject')->group( function () {
 
     Route::get('createsubject',[Subjectcontroller::class,'create'])->name('createsubject');
     Route::post('storesubject',[Subjectcontroller::class,'store'])->name('storesubject');
@@ -108,8 +112,15 @@ Route::prefix('subject')->group( function () {
     Route::get('restoresubject/{id}',[Subjectcontroller::class,'restore'])->name('restoresubject');
 
 });
+// });
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 // Route::middleware('auth')->prefix('cpanel')->group(function () {
 //     Route::prefix('home')->controller(HomeController::class)->group(function () {
 //         /*add new editor pages*/
 //         Route::get('/index', 'index');
 //     });
+// Auth::routes(['verfiy'=> true]);
+
+Auth::routes(['verify'=>true]);
+

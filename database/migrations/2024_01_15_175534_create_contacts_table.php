@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name', 50);
             $table->string('email', 50);
             $table->string('subject', 100);
+            $table->boolean('unread')->default(0);
             $table->longText('message');
             $table->softDeletes();
             $table->timestamps();

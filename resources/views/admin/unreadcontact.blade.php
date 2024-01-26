@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>contacts</title>
+  <title>unread contacts</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -12,15 +12,15 @@
 @include('admin.includes.nav')
 
 <div class="container">
-  <h2>all contacts</h2>
-  <p>all contacts</p>
+  <h2>unread contacts</h2>
+  <p>unread contacts</p>
   <table class="table table-hover">
     <thead>
       <tr>
         <th>name</th>
         <th>email</th>
         <th>subject</th>
-        <th>unread/read</th>
+        <!-- <th>message</th> -->
         <th>show</th>
         <th>delete</th>
       </tr>
@@ -31,11 +31,7 @@
         <td>{{$contact-> name}}</td>
         <td>{{$contact-> email}}</td>
         <td>{{$contact-> subject}}</td>
-        <td>@if($contact-> unread)
-            read
-            @else
-            unread
-            @endif</td>
+        <!-- <td>{{$contact-> message}}</td> -->
 
         <td><a href="showcontact/{{ $contact->id }}">show</a></td>
         <td><a href="deletecontact/{{ $contact->id }}" onclick="return confirm('Are you sure you want to delete?')">Delete</a></td>
